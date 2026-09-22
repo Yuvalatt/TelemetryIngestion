@@ -4,8 +4,7 @@ using static TelemetryIngestion.Protocol.ProtocolConstants;
 
 namespace TelemetryIngestion.Protocol;
 
-// Reassembles frames from one connection's byte stream. Validates structure only;
-// message types are checked by routing. One instance per connection, not thread-safe.
+// One per connection, not thread-safe. Only checks frame structure; message types are checked when routing.
 public sealed class FrameParser
 {
     private static ReadOnlySpan<byte> SyncWordBytes => new byte[] { SyncByte1, SyncByte2 };

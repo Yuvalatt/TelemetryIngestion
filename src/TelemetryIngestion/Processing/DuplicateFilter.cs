@@ -1,6 +1,6 @@
 namespace TelemetryIngestion.Processing;
 
-// Bounded per device (recent counters only) and across devices (idle devices are forgotten).
+// Keeps the last few counters per device and forgets idle devices, so memory stays bounded.
 public sealed class DuplicateFilter
 {
     private readonly Dictionary<uint, DeviceHistory> _devices = new();

@@ -15,7 +15,7 @@ public sealed class MessageQueue(string name, int capacity)
 
     public ChannelReader<Frame> Reader => _channel.Reader;
 
-    // Waits while the queue is full. The connection stops reading meanwhile, so TCP slows the device down.
+    // Waits while the queue is full, so the connection stops reading and backpressure reaches the device.
     public ValueTask EnqueueAsync(Frame frame, CancellationToken cancellationToken) =>
         _channel.Writer.WriteAsync(frame, cancellationToken);
 }

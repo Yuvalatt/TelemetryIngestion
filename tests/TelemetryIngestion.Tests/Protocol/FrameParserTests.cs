@@ -147,8 +147,7 @@ public class FrameParserTests
     [Fact]
     public void Resyncs_to_a_real_frame_that_starts_inside_a_false_header()
     {
-        // Read from the stray AA 55, the length field is the real frame's counter
-        // low byte and type (0x1002), which is over the limit.
+        // From the stray AA 55, the length field reads 0x1002 (the real frame's counter low byte and type), over the limit.
         var real = TestFrames.Build(deviceId: 0x01020304, counter: 0x0010, type: 2);
         var parser = new FrameParser();
 
@@ -233,7 +232,7 @@ public class FrameParserTests
             frames.AddRange(ReadAll(parser));
         }
 
-        // Checked after all appends, so buffer reuse would corrupt earlier payloads.
+        // Checked after all appends, to catch a payload that still points into the parser's buffer.
         Assert.Equal(300, frames.Count);
         for (int i = 0; i < frames.Count; i++)
         {
