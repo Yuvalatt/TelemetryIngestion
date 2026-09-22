@@ -65,10 +65,10 @@ public sealed class FrameParser
                 return false;
 
             frame = new Frame(
-                DeviceId: BinaryPrimitives.ReadUInt32BigEndian(header[DeviceIdOffset..]),
-                MessageCounter: BinaryPrimitives.ReadUInt16BigEndian(header[MessageCounterOffset..]),
-                MessageType: header[MessageTypeOffset],
-                Payload: _buffer.AsSpan(_start + HeaderSize, payloadLength).ToArray()); // copied: the buffer is reused
+                deviceId: BinaryPrimitives.ReadUInt32BigEndian(header[DeviceIdOffset..]),
+                messageCounter: BinaryPrimitives.ReadUInt16BigEndian(header[MessageCounterOffset..]),
+                messageType: header[MessageTypeOffset],
+                payload: _buffer.AsSpan(_start + HeaderSize, payloadLength).ToArray()); // copied: the buffer is reused
 
             _start += frameLength;
             return true;
